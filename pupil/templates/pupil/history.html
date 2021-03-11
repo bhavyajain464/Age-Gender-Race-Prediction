@@ -1,0 +1,100 @@
+{% extends 'pupil/base.html' %}
+{%block title %}Visuals{% endblock %}
+{% block body %}
+{% if object_list %}
+    <h3>Here are all my Visuals:</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="well">
+                This is the history of images.
+                {% for visual in object_list %} 
+                {% if visual.visual_type == "1" %}
+                <li>
+                    
+                    <!-- Delete -->
+                    <form action = "{% url 'pupil:deletevisual' visual.id %}" method = "post" style = "display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name = "visual_id" value = "{{visual.id}}"/>
+                        <button type="submit" class = "btn btn-default btn-sm">
+                            <span class = "glyphicon glyphicon-trash"></span>                                        
+                        </button>
+                    </form>
+
+                    
+                    
+
+                    <!-- Download -->
+                    <a href="{{visual.visual.url}}" download class = "btn btn-primary btn-sm">
+                        <span class = "glyphicon glyphicon-download"></span>
+                    </a>
+                    <img src = "{{visual.visual.url}}" class = "img-responsive" width = "250" height="250">
+                    
+                    <form action = "{% url 'pupil:convertvisual' visual.id %}" method = "post" style = "display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name = "visual_id" value = "{{visual.id}}"/>
+                        <button type="submit" class = "btn btn-default btn-sm">
+                            <span class = "glyphicon glyphicon-arrow-right"></span>                                        
+                        </button>
+                    </form>
+
+                    <img src = "{{visual.processes_visual.url}}" class = "img-responsive" width = "250" height="250">
+                    
+
+
+                </li>
+                {%endif%}
+                {%endfor%}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="well">
+                This is the history of Videos.
+                {% for visual in object_list %} 
+                {% if visual.visual_type == "2" %}
+                <li>
+                    
+                    
+                    <!-- Delete -->
+                    <form action = "{% url 'pupil:deletevisual' visual.id %}" method = "post" style = "display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name = "visual_id" value = "{{visual.id}}"/>
+                        <button type="submit" class = "btn btn-default btn-sm">
+                            <span class = "glyphicon glyphicon-trash"></span>                                        
+                        </button>
+                    </form>
+                    
+
+                    <!-- Download -->
+                    <a href="{{visual.visual.url}}" download class = "btn btn-primary btn-sm">
+                        <span class = "glyphicon glyphicon-download"></span>
+                    </a>
+                    {% if visual.processes_visual.url == "/media/logos/index_video.png" %}
+                    <img src = "{{visual.visual.url}}" class = "img-responsive" width = "250" height="250">
+                    {% else %}
+                    <video src = "{{visual.visual.url}}" class="videoWrapper" controls='true' width = "250" height="250">{{visual.processes_visual.url}}</video>
+                    {%endif%}
+
+                    <form action = "{% url 'pupil:convertvisual' visual.id %}" method = "post" style = "display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name = "visual_id" value = "{{visual.id}}"/>
+                        <button type="submit" class = "btn btn-default btn-sm">
+                            <span class = "glyphicon glyphicon-arrow-right"></span>                                        
+                        </button>
+                    </form>
+                    {% if visual.processes_visual.url == "/media/logos/index_video.png" %}
+                    <img src = "{{visual.processes_visual.url}}" class = "img-responsive" width = "250" height="250">
+                    {% else %}
+                    <video src = "{{visual.processes_visual.url}}" class="videoWrapper" controls='true' width = "250" height="250">{{visual.processes_visual.url}}</video>
+                    {%endif%}
+
+
+                </li>
+                {%endif%}
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+{% else %}
+    <h3>you dont have any visuals</h3>
+{% endif %}
+{% endblock %}

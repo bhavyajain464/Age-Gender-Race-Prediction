@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang ="en">
+    <head>
+        <meta charset = "UTF-8">
+        <title>{%block title %}RSTP{% endblock %}</title>
+        {% load staticfiles %}
+        <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link href = "https://fonts.googleapis.com/css?family=Satisfy" rel='stylesheet' type='text/css'>
+        <script src = "htpps://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+<div class = "container-fluid">
+    <div class = "row">
+        <div class= "col-sm-12 col-md-7">
+            <div class = "panel panel-default">
+                <div class = "panel-body">
+                    <h3>
+                        Create new Account
+                    </h3>
+
+                    <form class = "form-horizontal" action = "" method = "post" enctype = "multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'pupil/form-template.html' %}
+                        <div class = "form-group">
+                            <div class= "col-sm-offset-2-col-sm-10">
+                                <button type = "submit" class = "btn btn-success">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
